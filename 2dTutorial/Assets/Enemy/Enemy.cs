@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float _speed = 2f;
+    [SerializeField] GameObject _gameState;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,11 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider)
     {
         Destroy(gameObject);
+
+        if (collider.gameObject.name == "Player")
+            GameState.Instance.InitiateGameOver();
+
         Destroy(collider.gameObject);
+        GameState.Instance.IncreaseScore(10);
     }
 }
