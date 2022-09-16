@@ -7,18 +7,19 @@ using UnityEngine.SceneManagement;
 public class GameState : MonoBehaviour
 {
 
-    int _score = 0;
+    public int _score = 0;
 
     bool _isGameOver = false;
 
     [SerializeField] GameObject _scoreText;
     [SerializeField] GameObject _gameOverText;
+    public GameObject _Shield;
 
     public static GameState Instance;
 
     private void Awake()
     {
-        Instance = this; 
+        Instance = this;
     }
 
     public void IncreaseScore(int amount)
@@ -26,15 +27,16 @@ public class GameState : MonoBehaviour
         _score += amount;
         _scoreText.GetComponent<Text>().text = "Score: " + _score;
     }
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (Input.GetButtonDown("Submit") && _isGameOver)
+        if (Input.GetButtonDown("Submit") && _isGameOver)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -46,3 +48,4 @@ public class GameState : MonoBehaviour
         _gameOverText.SetActive(true);
     }
 }
+   

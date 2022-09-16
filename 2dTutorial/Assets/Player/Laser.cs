@@ -8,15 +8,19 @@ public class Laser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
-        transform.position += new Vector3 (0, Time.deltaTime * _speed, 0);
+
+        transform.position += new Vector3(0, Time.deltaTime * _speed, 0);
+        Vector2 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        if (screenPosition.y > Screen.height)
+        {
+            Destroy(gameObject);
+        }
 
     }
-  
 }

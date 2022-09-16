@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class LaserUFO : MonoBehaviour
 {
-    [SerializeField] float _speed = 2f;
-    [SerializeField] GameObject _gameState;
+    [SerializeField] float _speed = 1f;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +19,7 @@ public class Enemy : MonoBehaviour
         if (screenPosition.y < 0)
         {
             Destroy(gameObject);
+        
         }
     }
     private void OnTriggerEnter2D(Collider2D collider)
@@ -34,17 +34,14 @@ public class Enemy : MonoBehaviour
 
         else if (collider.gameObject.name == "Shield")
         {
-           
             GameState.Instance._Shield.SetActive(false);
-
         }
         else
         {
             Destroy(collider.gameObject);
         }
-       
 
-        
+       
         GameState.Instance.IncreaseScore(10);
     }
 }

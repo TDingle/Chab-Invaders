@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
     [SerializeField] float _speed = 2f;
     [SerializeField] GameObject _gameState;
+    [SerializeField] Sprite []  hitSprite;
+    [SerializeField] int timehit;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,27 +26,50 @@ public class Enemy : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Destroy(gameObject);
+        if(tag == "Breakable")
+        {
+            HitControl();
+        }
 
         if (collider.gameObject.name == "Player")
         {
-            GameState.Instance.InitiateGameOver();
             Destroy(collider.gameObject);
+            GameState.Instance.InitiateGameOver();
         }
 
         else if (collider.gameObject.name == "Shield")
         {
-           
             GameState.Instance._Shield.SetActive(false);
-
         }
         else
         {
             Destroy(collider.gameObject);
         }
-       
 
         
-        GameState.Instance.IncreaseScore(10);
+        GameState.Instance.IncreaseScore(5);
+    }
+    private void HitControl()
+    {
+        timehit++;
+        int maxhit = hitSprite.Length + 1;
+        if(timehit >= maxhit)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            ShowNextSprite();
+        }
+        
+    }
+    private void ShowNextSprite()
+    {
+        int spriteIndex = timehit - 1;
+        if(hitSprite[spriteIndex] != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = hitSprite[spriteIndex];
+        }
+        
     }
 }
