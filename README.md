@@ -1,1 +1,1 @@
-# My first game
+# Simple shmup in unity
